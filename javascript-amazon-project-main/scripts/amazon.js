@@ -32,7 +32,8 @@ products.forEach((product) => {
                     $${(product.priceCents / 100).toFixed(2)}
                 </div>
 
-                <div class="product-quantity-container">
+                <div class="product-quantity-container 
+                js-product-quantity-container">
                     <select>
               <option selected value="1">1</option>
               <option value="2">2</option>
@@ -53,7 +54,8 @@ products.forEach((product) => {
                     <img src="images/icons/checkmark.png"> Added
                 </div>
 
-                <button class="add-to-cart-button button-primary">
+                <button class="add-to-cart-button button-primary js-add-to-cart"
+                data-product-id ="${product.id}">
             Add to Cart
           </button>
             </div>
@@ -63,3 +65,40 @@ products.forEach((product) => {
 console.log(productsHTML);
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+let cartQuantity = 0;
+
+document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+
+        let matchingItem;
+        // Check if the product already exists in the cart
+        cart.forEach((item) => {
+            if (productId === item.productId) {
+                matchingItem = item;
+            }
+        });
+
+        if (matchingItem) {
+            matchingItem.quantity += 1;
+        } else {
+            cart.push({
+                productId: productId,
+                quantity: 1
+            });
+            console.log(cart);
+
+        };
+
+        //cart.forEach((itemQuantity) => {
+        //    cartQuantity = itemQuantity.quantity;
+        //    console.log(cartQuantity);
+
+        // })
+        //cartQuantity = cart.length;
+        //document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    });
+})
