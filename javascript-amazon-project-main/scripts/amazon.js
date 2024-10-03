@@ -6,7 +6,7 @@ Save the data (List, objects, Methods)
 /* 
 Generate the HTML
 */
-
+import { cart } from '../data/cart.js';
 
 let productsHTML = '';
 
