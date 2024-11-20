@@ -27,6 +27,7 @@ cart.forEach((cartItem) => {
   const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
   const dateString = deliveryDate.format('dddd, MMMM D');
   
+  
 
   cartSummaryHTML += `
     <div class="cart-item-container
@@ -44,7 +45,7 @@ cart.forEach((cartItem) => {
             ${matchingProduct.name}
           </div>
           <div class="product-price">
-            $${formatCurrency(matchingProduct.priceCents * cartItem.quantity)}
+            ${matchingProduct.getPrice()}
           </div>
           <div class="product-quantity">
             <span>
@@ -101,9 +102,13 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
           </div>
         `
     });
+
+    
     
     return html;
 }
+
+
 
 document.querySelector('.js-order-summary')
   .innerHTML = cartSummaryHTML;
